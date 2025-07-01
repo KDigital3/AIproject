@@ -7,6 +7,7 @@ import MoodCheck from "./page/MoodCheck";
 import Music from "./page/Music";
 import Movie from "./page/Movie";
 import MoodSurvey from "./page/MoodSurvey";
+import Login from "./component/Login";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/Music" element={<Music />} />
           <Route path="/Movie" element={<Movie />} />
           <Route path="/Survey" element={<MoodSurvey />} />
+          <Route path="/Login" element={<Login />} />
         </Routes>
         </main>
         <Footer />
