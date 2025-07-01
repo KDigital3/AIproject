@@ -1,0 +1,109 @@
+/* Movie.module.css - 헤더 색상에 맞춰 수정 */
+
+.movieContainer {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f6faea; /* 헤더 배경색과 동일하게 설정 */
+  color: #36795A; /* 헤더 텍스트 색상과 유사하게 설정 */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* 기존 nav, logo, li, login 스타일은 Music.js에서 사용하지 않지만,
+   만약을 대비해 그대로 유지하거나 필요 없다면 제거할 수 있습니다. */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 60px;
+  border-bottom: 1px solid hsl(60, 16%, 83%);
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #36795A;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav li {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #36795A;
+}
+
+.login {
+  background-color: #36795A;
+  color: #FFFFFB;
+  padding: 8px 20px;
+  border-radius: 50px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mainContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+}
+
+.left {
+  flex: 1;
+  text-align: center;
+}
+
+.movieImage { /* 영화 이미지 클래스 이름 */
+  width: 250px;
+  margin-bottom: 32px;
+}
+
+/* 영화 추천 버튼 색상은 기존 초록색 유지 (헤더의 주요 색상) */
+.recommendButton {
+  background-color: #36795A; /* 헤더의 주요 색상과 동일 */
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 24px;
+}
+
+.description {
+  font-size: 16px;
+  color: #5e5e5e; /* 헤더의 텍스트 색상과 어울리도록 조정 */
+  line-height: 1.8;
+}
+
+.right {
+  flex: 1;
+  text-align: left;
+  padding-left: 80px;
+}
+
+/* 오른쪽 텍스트 색상도 헤더의 주요 색상인 초록색 유지 */
+.right h1 {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 24px;
+  color: #36795A; /* 헤더의 주요 색상과 동일 */
+}
+
+/* 오른쪽 텍스트 색상도 헤더의 주요 색상인 초록색 유지 */
+.right h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #36795A; /* 헤더의 주요 색상과 동일 */
+  line-height: 1.6;
+}
