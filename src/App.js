@@ -21,9 +21,11 @@ import Detail from "./page/Detail";
 import MyPage from "./page/MyPage";   // ⭐️ MyPage import 추가
 
 function App() {
-  useEffect(() => {
+    useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2, // scroll 속도
+      wrapper: document.querySelector('.app-container'),
+      content: document.querySelector('.app-container'),
+      duration: 1.2,
       easing: (t) => 1 - Math.pow(2, -10 * t),    
       smooth: true,
       syncTouch: true,

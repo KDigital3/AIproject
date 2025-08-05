@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Join.css';
 import logo from '../image/logo_footer.png';
 
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+
 export default function Join() {
   const [form, setForm] = useState({
     name: '',
@@ -39,7 +41,7 @@ export default function Join() {
     }
     setError('');
     setSuccess('');
-    fetch('http://localhost:4000/api/join', {
+    fetch(API_BASE + '/api/join', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

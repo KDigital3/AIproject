@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 import logo from '../image/logo_footer.png';
 
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
@@ -31,7 +33,7 @@ export default function Login() {
     }
     setError('');
     setSuccess('');
-    fetch('http://localhost:4000/api/login', {
+    fetch(API_BASE + '/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

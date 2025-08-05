@@ -15,6 +15,7 @@ import ActivityImage from "../image/guide_desc.png";
 import SaveImage from "../image/check-desc.png";
 import { songRecommendations, movieRecommendations } from "../data/recommendationData";
 
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 
 // 감정 label → 추천데이터 한글 키 변환표
 const labelMap = {
@@ -156,7 +157,7 @@ function Main() {
 // (4) 감정 및 추천 DB 저장
       const user = JSON.parse(localStorage.getItem("user"));
       if (user && data.result && data.label) {
-        fetch("http://localhost:4000/api/emotion", {
+        fetch(API_BASE + "/api/emotion", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

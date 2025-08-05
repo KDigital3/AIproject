@@ -20,14 +20,15 @@
 }
 
 body {
-  overflow-x: hidden;
+  overflow: hidden;
+  height: 100%;
   background-color: #f6faea;
   margin: 0;
   font-family: "NanumHuman", sans-serif;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  will-change:  scroll-position, transform;
+  will-change: scroll-position, transform;
 }
 
 .button-primary {
@@ -99,6 +100,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-y: auto;
+  height: 100vh;
 }
 
 .main-content {

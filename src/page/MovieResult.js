@@ -5,6 +5,8 @@ function getRandomItems(arr, count) {
   return shuffled.slice(0, count);
 }
 
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+
 function MovieResult() {
   const [movies, setMovies] = useState([]);
   const [todayLabel, setTodayLabel] = useState("");
@@ -14,7 +16,7 @@ function MovieResult() {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) return;
 
-    fetch(`http://localhost:4000/api/emotion?email=${encodeURIComponent(user.email)}`)
+    fetch(API_BASE + `/api/emotion?email=${encodeURIComponent(user.email)}`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data.emotions)) {

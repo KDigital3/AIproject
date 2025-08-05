@@ -1,70 +1,145 @@
-# Getting Started with Create React App
+# 무디트리 (MoodiTree)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=flat-square&logo=reactrouter&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-state-443E38?style=flat-square)
+![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
 
-## Available Scripts
+사용자가 입력한 문장을 분석해 감정을 진단하고, 감정에 맞는 음악과 영화를 추천하는 웹 서비스입니다. K-Digital Training 팀 프로젝트로 시작했습니다(2025.06 ~ 2025.07, 프론트엔드 2명·백엔드 2명).
 
-In the project directory, you can run:
+## 목차
 
-### `npm start`
+1. [주요 기능](#주요-기능)
+2. [기술 스택](#기술-스택)
+3. [로컬 개발](#로컬-개발)
+4. [환경 변수](#환경-변수)
+5. [배포](#배포)
+6. [프로젝트 구조](#프로젝트-구조)
+7. [라우트](#라우트)
+8. [API](#api)
+9. [팀](#팀)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 주요 기능
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| 기능 | 설명 |
+| --- | --- |
+| 감정 진단 | 사용자가 입력한 문장을 외부 감정 분석 API로 전송해 감정(긍정적/보통/부정적 등)을 진단 |
+| 콘텐츠 추천 | 진단된 감정에 따라 정적 데이터에서 음악·영화 3건을 랜덤 추천 |
+| 감정 기록 | 추천 내역을 MongoDB에 저장해 마이페이지에서 이력 확인 |
+| 감정 일기 | Zustand + localStorage 기반 캘린더에 오늘의 감정과 메모를 기록 |
 
-### `npm test`
+## 기술 스택
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Frontend**: React 19, React Router, Zustand(전역 상태 · 캘린더), GSAP + Lenis(스크롤 애니메이션), react-icons
+- **Backend**: Express 5, MongoDB(Mongoose 8) — `mooditree-server/`
+- **협업**: GitHub(브랜치 전략), Notion(회의 기록), Figma(UI 프로토타입 공유)
 
-### `npm run build`
+## 로컬 개발
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+# 프론트엔드
+cp .env.example .env
+npm install
+npm start
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# 백엔드 (mooditree-server/)
+cd mooditree-server
+cp .env.example .env
+# .env 파일에 MONGO_URI 설정 필요
+npm install
+node server.js
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 환경 변수
 
-### `npm run eject`
+### Frontend (`.env`)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+| 변수 | 기본값 | 설명 |
+| --- | --- | --- |
+| `REACT_APP_API_URL` | `http://localhost:4000` | 백엔드 API 서버 주소 |
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Backend (`mooditree-server/.env`)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+| 변수 | 기본값 | 설명 |
+| --- | --- | --- |
+| `MONGO_URI` | (필수) | MongoDB Atlas 접속 문자열 |
+| `PORT` | `4000` | 서버 포트 |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 배포
 
-## Learn More
+### Backend (Render / Railway / Fly.io)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. MongoDB Atlas 클러스터 생성 후 `MONGO_URI` 확보
+2. `mooditree-server/`를 Node.js 앱으로 배포
+3. 환경 변수에 `MONGO_URI` 설정
+4. Start command: `node server.js`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Frontend (Vercel / Netlify)
 
-### Code Splitting
+1. `REACT_APP_API_URL`을 배포된 백엔드 URL로 설정
+2. Build command: `npm run build`
+3. Publish directory: `build/`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 단일 서버 배포
 
-### Analyzing the Bundle Size
+React build 파일을 Express가 정적 파일로 서빙하도록 구성할 수 있습니다:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```javascript
+app.use(express.static('../build'));
+```
 
-### Making a Progressive Web App
+## 프로젝트 구조
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+src/
+  component/   Header · Footer · Login · Join
+  page/        Main · MoodCheck · Music · Movie · Loading · MusicResult
+               MovieResult · MoodSurvey · Calendar · Detail · MyPage
+               Guide · Contact
+  store/       Zustand 전역 상태 (캘린더 emotionMap · noteMap)
+  data/        정적 음악/영화 추천 데이터 (50건 × 5감정)
+  image/       앨범 커버 · 영화 포스터 · UI 에셋
 
-### Advanced Configuration
+public/
+  assets/      브랜드 에셋 (tree · note · movie · earphones)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+mooditree-server/
+  server.js    Express 서버 (라우트 통합)
+  server/models/  Emotion 스키마 (Mongoose)
+```
 
-### Deployment
+## 라우트
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+| 경로 | 페이지 | 설명 |
+| --- | --- | --- |
+| `/` | Main | 메인 · 감정 진단 입력 |
+| `/About` | Guide | 서비스 소개 · FAQ |
+| `/MoodCheck` | MoodCheck | 음악/영화/설문 선택 허브 |
+| `/Music` | Music | 음악 추천 안내 |
+| `/Movie` | Movie | 영화 추천 안내 |
+| `/Survey` | MoodSurvey | 8문항 감정 설문 |
+| `/Loading/:type/:mood` | Loading | 3초 로딩 후 결과 이동 |
+| `/MusicResult/:mood` | MusicResult | 추천 음악 3건 |
+| `/MovieResult/:mood` | MovieResult | 추천 영화 3건 |
+| `/MyPage` | MyPage | 오늘의 감정 · 추천 이력 · 프로필 |
+| `/Calendar` | Calendar | 감정 일기 캘린더 |
+| `/Detail/:date` | Detail | 일기 상세 · 삭제 |
+| `/Login` | Login | 로그인 |
+| `/Join` | Join | 회원가입 |
+| `/Contact` | Contact | 문의 (로컬 console.log만) |
 
-### `npm run build` fails to minify
+## API
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| 메서드 | 경로 | 설명 |
+| --- | --- | --- |
+| POST | `/api/join` | 회원가입 (name · email · password) |
+| POST | `/api/login` | 로그인 (email · password) |
+| POST | `/api/emotion` | 감정 + 추천 저장 |
+| GET | `/api/emotion?email=` | 해당 사용자의 감정 이력 조회 |
+
+외부: `POST https://flask-emotion-api-7u41.onrender.com/api/sentiment` — 문장 감정 분석
+
+## 팀
+
+프론트엔드 2명·백엔드 2명, 총 4명이 참여했습니다. 기여 내역은 각자 GitHub 커밋 히스토리를 참고해주세요.

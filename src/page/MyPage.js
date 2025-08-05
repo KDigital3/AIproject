@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "./MyPage.css";
 import { FaCamera } from "react-icons/fa";
 
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+
 function extractEmoji(str) {
   if (!str) return null;
   const match = str.match(/[\p{Emoji}]/gu);
@@ -46,7 +48,7 @@ function MyPage() {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:4000/api/emotion?email=${encodeURIComponent(user.email)}`)
+      fetch(API_BASE + `/api/emotion?email=${encodeURIComponent(user.email)}`)
         .then(res => res.json())
         .then(data => {
           const emotions = Array.isArray(data.emotions) ? data.emotions : [];
